@@ -51,6 +51,17 @@ class KargoEnv implements Serializable  {
     this.venv = new com.mirantis.python.VirtualEnv(ctx, this.ctx.env.WORKSPACE + ".venv/")
   }
 
+  // TODO: refact
+  def getAdminNode() {
+    cmd = 'ENV_NAME=' + this.name + ' python fuel-ccp-installer/utils/jenkins/env.py get_slaves_ip | cut -d, -f1 | sed "/[^0-9\.]//"'
+    return this.ctx.sh script: cmd, returnStdout: true
+  }
+
+  // TODO: refact
+  def runCmd(cmd) {
+    this.ctx.sh 'sshpass -pvagrant ssh vagrant@' + this.getAdminNode() + " " + cmd
+  }
+
   // ubuntuIsoUrl setters && getter
   // TODO: pass and validate checksum
   def setUbuntuIsoUrl(url) {
