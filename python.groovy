@@ -3,7 +3,7 @@ package com.mirantis.python
 class VirtualEnv implements Serializable  {
   private String path;
   private ctx;
-
+/*
   @NonCPS
   def _init() {
     this.ctx.sh "test -d " + this.path + "|| virtualenv " + this.path
@@ -28,6 +28,6 @@ class VirtualEnv implements Serializable  {
   def getPath() {
     return this.path
   }
-
+*/
 }
 
