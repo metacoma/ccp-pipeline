@@ -5,7 +5,7 @@ class VirtualEnv implements Serializable  {
   private ctx;
 
   @NonCPS
-  def init() {
+  def _init() {
     this.ctx.sh "test -d " + this.path + "|| virtualenv " + this.path
   }
 
