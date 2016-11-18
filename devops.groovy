@@ -58,7 +58,7 @@ class KargoEnv implements Serializable  {
   }
 
   // TODO: refact
-  def runCmd(cmd) {
+  def run(cmd) {
     this.ctx.sh 'sshpass -pvagrant ssh vagrant@' + this.getAdminNode() + " " + cmd
   }
 
