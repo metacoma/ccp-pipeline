@@ -14,6 +14,18 @@ node('172.16.180.109') {
     //FIXME: not implemented
     //ccp.setConfig() 
     ccp.buildImages()
-    ccp.deploy()
+    ccp.deployImages()
+}
+```
+
+Ideal picture of using jenkins pipelines (with many assumptions)
+```groovy
+node('172.16.180.109') {
+    kargoEnv('billy') {
+        ccp() {
+            ccp.buildImage(GERRIT_PROJECT, GERRIT_REFSPEC)
+            ccp.deployImage(GERRIT_PROJECT)
+        }
+    }
 }
 ```
