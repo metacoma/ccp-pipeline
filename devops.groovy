@@ -23,8 +23,18 @@ class KargoEnv implements Serializable  {
 
   @NonCPS
   def deploy() {
-    this.ctx.echo "deploy()"
-    //this.initVenv()
+    this.initVenv()
+    this.ctx.sh 'git clone https://review.openstack.org/openstack/fuel-ccp-installer'
+    // TODO refact
+    deployCmd = 'export ENV_NAME=' + this.name + ';' +
+      'export IMAGE_PATH=' + this.ubuntuIsoUrl + ';' +
+      'export DONT_DESTROY_ON_SUCCESS=1;' +
+      'export DEPLOY_METHOD="kargo"' +
+      'export SLAVE_COUNT=' + this.slaveCount + ';'
+      'export WORKSPACE=' + this.ctx.env.WORKSPACE + ';' +
+      'cd fuel-ccp-installer && bash -x "./utils/jenkins/run_k8s_deploy_test.sh"
+
+    this.ctx.sh deployCmd
   }
 
   // init venv for fuel-devops
