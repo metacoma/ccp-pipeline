@@ -7,7 +7,10 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
       software-properties-common                     \
       python-setuptools                              \
       gcc                                            \
-      git
+      sudo                                           \
+      git                                          &&\
+      apt-get clean                                &&\
+      rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN echo 'jenkins ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 WORKDIR /root
-RUN git clone https://git.openstack.org/openstack/fuel-ccp
-RUN pip install ./fuel-ccp/
+RUN git clone https://git.openstack.org/openstack/fuel-ccp && pip install ./fuel-ccp/ && rm -rf fuel-ccp
